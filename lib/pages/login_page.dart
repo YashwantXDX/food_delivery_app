@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
             //email textfield
             MyTextField(
                 controller: emailController,
-                hintText: "Email",
+                hintText: "Enter Email",
                 obscureText: false,
             ),
 
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             // password textfield
             MyTextField(
                 controller: passwordController,
-                hintText: "Password",
+                hintText: "Enter Password",
                 obscureText: true,
             ),
 
