@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/pages/my_drawer_tile.dart';
+import 'package:food_delivery_app/components/my_drawer_tile.dart';
 import 'package:food_delivery_app/pages/setting_page.dart';
 import 'package:gap/gap.dart';
 
