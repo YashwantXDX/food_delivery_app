@@ -1,16 +1,13 @@
 # food_delivery_app
 
 A new Flutter project of Food Delivery App
+This is Our Major Project for College.
 
-## Getting Started
+Work Done (till now):-
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1) Login Page
+2) Register Page
+3) Login Or Register Page
+4) Drawer Page
+5) Drawer Tile Page
+6) Setting Page
