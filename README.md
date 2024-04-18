@@ -13,3 +13,7 @@ Work Done (till now):-
 6) Setting Page
 7) Sliver Page
 8) Tab Bar Done
+9) Food Modal 
+10) Restaurant Modal
+11) Food Tile
+12) Food Page

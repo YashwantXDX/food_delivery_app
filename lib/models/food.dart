@@ -20,11 +20,11 @@ class Food {
 
 //food categories
 enum FoodCategory {
-  burgers,
-  salads,
-  sides,
-  desserts,
-  drinks,
+  Burgers,
+  Salads,
+  Sides,
+  Desserts,
+  Drinks,
 }
 
 //food addons

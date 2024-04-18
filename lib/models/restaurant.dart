@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:food_delivery_app/models/food.dart';
 
-class Restaurant {
+class Restaurant extends ChangeNotifier{
   // list of food menu
   final List<Food> _menu = [
     //burgers
 
     Food(
-      name: "Classic Cheeseburger",
+      name: "Classic Cheese Burger",
       description:
           "A juicy cheese patty with cheddar, lettuce, tomato, and a hint of onion and pickle.",
       imagePath: "assets/images/burgers/cheeseburger.jpg",
       price: 159,
-      category: FoodCategory.burgers,
+      category: FoodCategory.Burgers,
       availableAddons: [
         Addons(name: "Extra Cheese", price: 50),
         Addons(name: "Lettuce", price: 10),
@@ -20,12 +21,12 @@ class Restaurant {
     ),
 
     Food(
-      name: "Chicken Maharaja Mac",
+      name: "Chicken Maharaja Mac Burger",
       description:
           "A delectable patty made of green goodness, potatoes, peas, carrots and selection of Indian spices. Topped with crispy lettuce, mayonnaise, packed into sesame toasted buns.",
       imagePath: "assets/images/burgers/Chicken Maharaja Mac.jpg",
       price: 459,
-      category: FoodCategory.burgers,
+      category: FoodCategory.Burgers,
       availableAddons: [
         Addons(name: "Extra Cheese", price: 50),
         Addons(name: "Lettuce", price: 10),
@@ -34,12 +35,12 @@ class Restaurant {
     ),
 
     Food(
-      name: "McAloo Tikki",
+      name: "McAloo Tikki Burger",
       description:
           "The combination of a potato and peas patty with special Indian spices coated with breadcrumbs, served with sweet tomato mayo, fresh onions",
       imagePath: "assets/images/burgers/McAloo-tikki1.jpg",
       price: 109,
-      category: FoodCategory.burgers,
+      category: FoodCategory.Burgers,
       availableAddons: [
         Addons(name: "Extra Cheese", price: 50),
         Addons(name: "Lettuce", price: 10),
@@ -48,12 +49,12 @@ class Restaurant {
     ),
 
     Food(
-      name: "McVeggie",
+      name: "McVeggie Burger",
       description:
           "The vegetarian-based burger contains a battered and breaded patty which is made of peas, corn, carrots, green beans, onions, potatoes, rice and spices, served in a sesame toasted bun with eggless mayonnaise and lettuce.",
       imagePath: "assets/images/burgers/McVeggie.jpg",
       price: 189,
-      category: FoodCategory.burgers,
+      category: FoodCategory.Burgers,
       availableAddons: [
         Addons(name: "Extra Cheese", price: 50),
         Addons(name: "Lettuce", price: 10),
@@ -62,12 +63,12 @@ class Restaurant {
     ),
 
     Food(
-      name: "American Cheese Supreme Veg",
+      name: "American Cheese Supreme Veg Burger",
       description:
           "Think jalapenos, corn, grilled chicken, and the crown jewel – lots and lots of cheese. In fact, this burger is so cheesy that you might just have to eat it with both hands to stop the cheese from running out.",
-      imagePath: "assets/images/burgers/cheeseburger.jpg",
+      imagePath: "assets/images/burgers/American Cheese Supreme Veg.jpg",
       price: 159,
-      category: FoodCategory.burgers,
+      category: FoodCategory.Burgers,
       availableAddons: [
         Addons(name: "Extra Cheese", price: 50),
         Addons(name: "Lettuce", price: 10),
@@ -82,9 +83,9 @@ class Restaurant {
       "Onion salad recipe made with sliced onion rings, lemon juice, fresh herbs, and Indian spices.",
       imagePath: "assets/images/salads/Laccha pyaaz.jpg",
       price: 69,
-      category: FoodCategory.salads,
+      category: FoodCategory.Salads,
       availableAddons: [
-
+        Addons(name: "Spoon", price: 5),
       ],
     ),
 
@@ -94,9 +95,9 @@ class Restaurant {
       "Salad recipe made with freshly diced cucumber, tomatoes, onions, chili peppers and lime juice.",
       imagePath: "assets/images/salads/Kachumber Salad Recipe.jpg",
       price: 59,
-      category: FoodCategory.salads,
+      category: FoodCategory.Salads,
       availableAddons: [
-
+        Addons(name: "Spoon", price: 5),
       ],
     ),
 
@@ -106,9 +107,9 @@ class Restaurant {
       "Salad made with corn, pomegranate, and coconut and tempered with a few spices.",
       imagePath: "assets/images/salads/Corn Pomegranate Kosambari.jpg",
       price: 79,
-      category: FoodCategory.salads,
+      category: FoodCategory.Salads,
       availableAddons: [
-
+        Addons(name: "Spoon", price: 5),
       ],
     ),
 
@@ -119,7 +120,7 @@ class Restaurant {
       "Bread with fresh herbs, tons of flavorful roasted garlic, and is perfectly toasted.",
       imagePath: "assets/images/sides/Garlic-Bread.jpg",
       price: 179,
-      category: FoodCategory.sides,
+      category: FoodCategory.Sides,
       availableAddons: [
         Addons(name: "Cheese", price: 50),
       ],
@@ -131,9 +132,9 @@ class Restaurant {
       "A traditional Mexican food consisting of a small hand-sized corn- or wheat-based tortilla topped with a filling.",
       imagePath: "assets/images/sides/Mexican Taco.jpg",
       price: 149,
-      category: FoodCategory.sides,
+      category: FoodCategory.Sides,
       availableAddons: [
-
+        Addons(name: "Extra Taco", price: 50),
       ],
     ),
 
@@ -144,9 +145,9 @@ class Restaurant {
       "Cake filled with more and more melting chocolate.",
       imagePath: "assets/images/desserts/Choco Lava Cake.jpg",
       price: 219,
-      category: FoodCategory.desserts,
+      category: FoodCategory.Desserts,
       availableAddons: [
-
+        Addons(name: "Spoon", price: 5),
       ],
     ),
 
@@ -156,9 +157,9 @@ class Restaurant {
       "Cake with superior buttery, vanilla, and cocoa flavors, as well as a delicious tang from buttermilk.",
       imagePath: "assets/images/desserts/Red Valvet Cake.jpg",
       price: 249,
-      category: FoodCategory.desserts,
+      category: FoodCategory.Desserts,
       availableAddons: [
-
+        Addons(name: "Spoon", price: 5),
       ],
     ),
 
@@ -169,9 +170,9 @@ class Restaurant {
       "Coco Cola Drink 500ml",
       imagePath: "assets/images/drinks/Coco Cola.jpg",
       price: 49,
-      category: FoodCategory.drinks,
+      category: FoodCategory.Drinks,
       availableAddons: [
-
+        Addons(name: "Extra Cup", price: 10),
       ],
     ),
 
@@ -181,9 +182,9 @@ class Restaurant {
       "Fanta 500ml",
       imagePath: "assets/images/drinks/Fanta.jpg",
       price: 49,
-      category: FoodCategory.drinks,
+      category: FoodCategory.Drinks,
       availableAddons: [
-
+        Addons(name: "Extra Cup", price: 10),
       ],
     ),
 
@@ -193,12 +194,48 @@ class Restaurant {
       "Sprite 500ml",
       imagePath: "assets/images/drinks/Sprite.jpg",
       price: 49,
-      category: FoodCategory.drinks,
+      category: FoodCategory.Drinks,
       availableAddons: [
-
+        Addons(name: "Extra Cup", price: 10),
       ],
     ),
 
-
   ];
+  /*
+
+  G E T T E R S
+
+  */
+
+  List<Food> get menu => _menu;
+
+  /*
+
+  O P E R A T I O N S
+
+  */
+
+  // add to cart
+
+  // remove from cart
+
+  // get total price of cart
+
+  // get total number of items in cart
+
+  // clear cart
+
+
+  /*
+
+  H E L P E R S
+
+  */
+
+  // generate a receipt
+
+  // format double value into money
+
+  // format list of addons into a string summary
+
 }
