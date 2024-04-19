@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/models/food.dart';
+import 'package:food_delivery_app/models/restaurant.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class FoodPage extends StatefulWidget {
   final Food food;
@@ -21,6 +22,25 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+
+  // method to add to cart
+  void addToCart(Food food, Map<Addons, bool> selectedAddons){
+
+    // close the current food page to go back to menu
+    Navigator.pop(context);
+
+    // format selected addons
+    List<Addons> currentlySelectedAddons = [];
+    for(Addons addons in widget.food.availableAddons){
+      if(widget.selectedAddons[addons] == true){
+        currentlySelectedAddons.add(addons);
+      }
+    }
+
+    // add to cart
+    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -113,7 +133,7 @@ class _FoodPageState extends State<FoodPage> {
                 ),
 
                 // button => Add to Cart
-                MyButton(onTap: (){}, text: "Add to Cart"),
+                MyButton(onTap: () => addToCart(widget.food, widget.selectedAddons), text: "Add to Cart"),
 
                 const Gap(25),
               ],
@@ -133,7 +153,7 @@ class _FoodPageState extends State<FoodPage> {
               ),
               child: IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back_ios_new_rounded),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
             ),
           ),
