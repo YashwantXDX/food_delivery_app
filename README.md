@@ -13,10 +13,13 @@ Work Done (till now):-
 6) Setting Page
 7) Sliver Page
 8) Tab Bar Done
-9) Food Modal 
+9) Food Modal
 10) Restaurant Modal
 11) Food Tile
 12) Food Page
 13) Cart Item
 14) Add to Cart, Remove from Cart, Total Price, Total Items, Clear Cart
 15) Cart Page
+16) Payment Page
+17) Receipt Page
+18) Delivery In Process Page

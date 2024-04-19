@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_cart_tile.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:food_delivery_app/pages/payment_page.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -52,19 +52,19 @@ class CartPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-
             //list of cart
             Expanded(
               child: Column(
                 children: [
                   userCart.isEmpty
-                      ? const Expanded(child: Center(child: Text("Cart is Empty..")))
+                      ? const Expanded(
+                          child: Center(child: Text("Cart is Empty..")))
                       : Expanded(
                           child: ListView.builder(
                           itemBuilder: (context, index) {
                             //get individual cart item
                             final cartItem = userCart[index];
-              
+
                             //return cart tile
                             return MyCartTile(cartItem: cartItem);
                           },
@@ -75,7 +75,13 @@ class CartPage extends StatelessWidget {
             ),
 
             //button to pay
-            MyButton(onTap: () {}, text: "Go to Checkout"),
+            MyButton(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PaymentPage(),
+                    )),
+                text: "Go to Checkout"),
 
             const Gap(25),
           ],

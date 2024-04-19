@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_quantity_selector.dart';
 import 'package:food_delivery_app/models/cart_item.dart';
@@ -42,7 +41,7 @@ class MyCartTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //food name
-                      Container(width: 100,child: Text(cartItem.food.name,softWrap: true,)),
+                      SizedBox(width: MediaQuery.of(context).size.width / 4,child: Text(cartItem.food.name,softWrap: true,)),
 
                       const Gap(5),
 
