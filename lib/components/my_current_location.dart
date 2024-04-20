@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:provider/provider.dart';
 
-class MyCurrentLocation extends StatelessWidget {
+class MyCurrentLocation extends StatefulWidget {
   const MyCurrentLocation({super.key});
+
+  @override
+  State<MyCurrentLocation> createState() => _MyCurrentLocationState();
+}
+
+class _MyCurrentLocationState extends State<MyCurrentLocation> {
+  final textController = TextEditingController();
 
   void openLocationSearchBox(BuildContext context){
     showDialog(context: context, builder: (context) => AlertDialog(
       title: const Text("Your Location"),
-      content: const TextField(decoration: InputDecoration(
-        hintText: "Search Address...",
+      content: TextField(controller: textController,decoration: InputDecoration(
+        hintText: "Enter Address...",
       ),),
       actions: [
 
@@ -15,7 +25,16 @@ class MyCurrentLocation extends StatelessWidget {
         MaterialButton(onPressed: () => Navigator.pop(context),child: const Text("Cancel"),),
 
         //Save Button
-        MaterialButton(onPressed: () => Navigator.pop(context),child: const Text("Save"),),
+        MaterialButton(onPressed: () {
+
+          //update delivery address
+          String newAddress = textController.text;
+          context.read<Restaurant>().updateDeliveryAddress(newAddress);
+          Navigator.pop(context);
+          textController.clear();
+
+        },
+        child: const Text("Save"),),
 
       ],
     ),);
@@ -39,13 +58,13 @@ class MyCurrentLocation extends StatelessWidget {
             child: Row(
               children: [
                 //address
-                Text(
-                  "Rajeev Nagar",
+                Consumer<Restaurant>(builder: (context, restaurant, child) => Text(
+                  restaurant.deliveryAddress,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.inversePrimary,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                ),),
 
                 //drop down menu
                 const Icon(Icons.keyboard_arrow_down_rounded),

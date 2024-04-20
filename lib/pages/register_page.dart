@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 import 'package:gap/gap.dart';
 
 class RegisterPage extends StatefulWidget {
-
   final void Function()? onTap;
 
   const RegisterPage({super.key, required this.onTap});
@@ -19,7 +19,43 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  // register method
+  void register() async {
+    //get auth service
+    final _authService = AuthService();
+
+    // check is passwords match -> create user
+    if (passwordController.text == confirmPasswordController.text) {
+      //try creating user
+      try {
+        await _authService.signUpWithEmailPassword(
+            emailController.text, passwordController.text);
+      }
+
+      //display any errors
+      catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+
+    //check is passwords don't match -> show error
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Passwords don't match!"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
             const Gap(25),
 
             //sign up button
-            MyButton(onTap: () {}, text: "Sign Up"),
+            MyButton(onTap: () {register();}, text: "Sign Up"),
 
             const Gap(25),
 
@@ -85,16 +121,22 @@ class _RegisterPageState extends State<RegisterPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("already have an account? ",style: TextStyle(
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),),
+                Text(
+                  "already have an account? ",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                  ),
+                ),
                 const Gap(4),
                 GestureDetector(
                   onTap: widget.onTap,
-                  child: Text("Login Now",style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                    fontWeight: FontWeight.bold,
-                  ),),
+                  child: Text(
+                    "Login Now",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),
