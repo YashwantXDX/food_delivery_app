@@ -43,6 +43,8 @@ dependencies:
   firebase_core: ^2.30.0
   firebase_auth: ^4.19.2
   cloud_firestore: ^4.17.0
+  animated_splash_screen: ^1.3.0
+  lottie: ^3.1.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,7 @@ flutter:
     - assets/images/drinks/
     - assets/images/salads/
     - assets/images/sides/
+    - assets/lottie/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
