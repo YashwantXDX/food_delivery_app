@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
-import 'package:food_delivery_app/pages/home_page.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 import 'package:gap/gap.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,18 +20,35 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   //login method
-  void login(){
+  void login() async{
 
-    /*
+    // get instance of auth service
+    final _authService = AuthService();
 
-      Authentication Process
+    // try sign in
+    try{
+      await _authService.signInWithEmailPassword(emailController.text, passwordController.text);
+    }
 
-    */
+    //display any errors
+    catch(e){
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
-    //navigate to home page
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage(),));
-
-
+  void forgetPassword(){
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text("User tapped forgot password."),
+      ),
+    );
   }
 
   @override

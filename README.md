@@ -23,3 +23,5 @@ Work Done (till now):-
 16) Payment Page
 17) Receipt Page
 18) Delivery In Process Page
+19) Firebase Authentication
+20) Firebase Storage
