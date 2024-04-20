@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/pages/delivery_in_progress_page.dart';
-import 'package:gap/gap.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -71,9 +70,8 @@ class _PaymentPageState extends State<PaymentPage> {
         backgroundColor: Colors.transparent,
         title: const Text("Checkout"),
       ),
-      body: Column(
+      body: ListView(
         children: [
-          // credit / debit card
           CreditCardWidget(
             cardNumber: cardNumber,
             expiryDate: expiryDate,
@@ -99,11 +97,7 @@ class _PaymentPageState extends State<PaymentPage> {
               },
               formKey: formKey),
 
-          const Spacer(),
-
           MyButton(onTap: userTappedPay, text: "Pay Now"),
-
-          const Gap(25),
         ],
       ),
     );

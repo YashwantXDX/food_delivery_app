@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(e.toString()),
+          title: Text("Wrong Email / Password"),
         ),
       );
     }

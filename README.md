@@ -25,3 +25,6 @@ Work Done (till now):-
 18) Delivery In Process Page
 19) Firebase Authentication
 20) Firebase Storage
+
+
+Made Changes in Payment Page, Receipt Page -> Removed the Overflow problem causing in Receipt Page

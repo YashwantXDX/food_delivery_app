@@ -24,7 +24,7 @@ void main() async{
         create: (context) => Restaurant(),
       ),
     ],
-    child: const MyFoodDeliveryApp(),
+child: const MyFoodDeliveryApp(),
     ),
   );
 }
