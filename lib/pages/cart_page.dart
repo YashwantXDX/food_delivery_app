@@ -76,12 +76,19 @@ class CartPage extends StatelessWidget {
 
             //button to pay
             MyButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const PaymentPage(),
-                    )),
-                text: "Go to Checkout"),
+                onTap: () {
+                  if(restaurant.getTotalPrice() != 0.0){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PaymentPage(),
+                        ));
+                  }
+                  else{
+                    showDialog(context: context, builder: (context) => AlertDialog(content: Text("Cart is Empty.."),),);
+                  }
+                },
+                text: "Payable Amount : ${restaurant.getTotalPrice()}"),
 
             const Gap(25),
           ],

@@ -27,6 +27,8 @@ Work Done (till now):-
 20) Firebase Storage
 21) Forget Password Page
 22) Animated Splash Screen 
+23) Added Cart Count
+24) Implemented Circular Progress Indicator in Buttons
 
 
 Made Changes in Payment Page, Receipt Page -> Removed the Overflow problem causing in Receipt Page
