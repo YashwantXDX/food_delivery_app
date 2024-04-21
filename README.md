@@ -29,6 +29,7 @@ Work Done (till now):-
 22) Animated Splash Screen 
 23) Added Cart Count
 24) Implemented Circular Progress Indicator in Buttons
+25) Integrated UPI
 
 
 Made Changes in Payment Page, Receipt Page -> Removed the Overflow problem causing in Receipt Page
