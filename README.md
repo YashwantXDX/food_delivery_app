@@ -33,3 +33,5 @@ Work Done (till now):-
 
 
 Made Changes in Payment Page, Receipt Page -> Removed the Overflow problem causing in Receipt Page
+Made Changes in Splash Screen -> Added my name and University name
+Made Changes in Delivery Fees and Timing

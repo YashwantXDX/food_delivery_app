@@ -30,7 +30,7 @@ class MyDescriptionBox extends StatelessWidget {
           // delivery fee
           Column(
             children: [
-              Text("Rs. 30",style: myPrimaryTextStyle,),
+              Text("Free",style: myPrimaryTextStyle,),
               Text("Delivery Fee",style: mySecondaryTextStyle,),
             ],
           ),
@@ -38,7 +38,7 @@ class MyDescriptionBox extends StatelessWidget {
           //delivery time
           Column(
             children: [
-              Text("15 - 20 mins ",style: myPrimaryTextStyle,),
+              Text("20 - 30 mins ",style: myPrimaryTextStyle,),
               Text("Delivery Time",style: mySecondaryTextStyle,),
             ],
           ),
