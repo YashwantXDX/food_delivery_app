@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_cart_tile.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
-import 'package:food_delivery_app/services/payment/UpiPayment.dart';
+import 'package:food_delivery_app/pages/select_mode_of_payment.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -81,11 +81,11 @@ class CartPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UpiPaymentPage(),
+                          builder: (context) => const SelectModeOfPaymentPage(),
                         ));
                   }
                   else{
-                    showDialog(context: context, builder: (context) => AlertDialog(content: Text("Cart is Empty.."),),);
+                    showDialog(context: context, builder: (context) => const AlertDialog(content: Text("Cart is Empty.."),),);
                   }
                 },
                 text: "Payable Amount : ${restaurant.getTotalPrice()}"),

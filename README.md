@@ -30,6 +30,7 @@ Work Done (till now):-
 23) Added Cart Count
 24) Implemented Circular Progress Indicator in Buttons
 25) Integrated UPI
+26) Select Payment Mode Activated
 
 
 Made Changes in Payment Page, Receipt Page -> Removed the Overflow problem causing in Receipt Page

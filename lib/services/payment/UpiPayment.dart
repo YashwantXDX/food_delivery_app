@@ -41,7 +41,7 @@ class _UpiPaymentPageState extends State<UpiPaymentPage> {
 
     return _upiIndia.startTransaction(
       app: app,
-      receiverUpiId: "8319785116@paytm",
+      receiverUpiId: "8319785116@ptaxis",
       receiverName: 'Yashwant Choure',
       transactionRefId: 'TestingUpiIndiaPlugin',
       transactionNote: "Ordered from Yashwant's Restauro",

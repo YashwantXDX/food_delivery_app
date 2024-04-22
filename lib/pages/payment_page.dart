@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/pages/delivery_in_progress_page.dart';
+import 'package:gap/gap.dart';
 
 
 class PaymentPage extends StatefulWidget {
@@ -97,6 +98,8 @@ class _PaymentPageState extends State<PaymentPage> {
                 });
               },
               formKey: formKey),
+
+          const Gap(30),
 
           MyButton(onTap: userTappedPay, text: "Pay Now"),
         ],
