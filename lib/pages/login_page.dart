@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
           
               //message, app slogan
               Text(
-                "Food Delivery App",
+                "Login",
                 style: TextStyle(
                   fontSize: 16,
                   color: Theme.of(context).colorScheme.inversePrimary,
