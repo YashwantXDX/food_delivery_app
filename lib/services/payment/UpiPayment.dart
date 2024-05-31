@@ -1,224 +1,92 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/pages/delivery_in_progress_page.dart';
-import 'package:provider/provider.dart';
-import 'package:upi_india/upi_india.dart';
+import 'package:gap/gap.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-class UpiPaymentPage extends StatefulWidget {
+class RazorPayPage extends StatefulWidget {
+  final double amount;
+  const RazorPayPage(this.amount, {super.key});
+
   @override
-  _UpiPaymentPageState createState() => _UpiPaymentPageState();
+  State<RazorPayPage> createState() => _RazorPayPageState();
 }
 
-class _UpiPaymentPageState extends State<UpiPaymentPage> {
+class _RazorPayPageState extends State<RazorPayPage> {
 
-  Future<UpiResponse>? _transaction;
-  UpiIndia _upiIndia = UpiIndia();
-  List<UpiApp>? apps;
+  late Razorpay _razorpay;
+  TextEditingController amtController = TextEditingController();
 
-  TextStyle header = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.bold,
-  );
 
-  TextStyle value = TextStyle(
-    fontWeight: FontWeight.w400,
-    fontSize: 14,
-  );
+  void openCheckout(amount) async{
+    amount = widget.amount * 100;
+    var options = {
+      'key' : 'rzp_test_1DP5mmOlF5G5ag',
+      'amount' : amount,
+      'name' : 'Yashwant Choure',
+      'prefill' : {'contact' : '8319785116', 'email' : 'yashwant.choure73546@gmail.com'},
+      'external' : {
+        'wallets' : ['paytm','phonepe']
+      }
+    };
+
+    try{
+      _razorpay.open(options);
+    }
+
+    catch(e){
+      debugPrint('Error : e');
+    }
+  }
+
+  void handlePaymentSuccess(PaymentSuccessResponse response) async{
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const DeliveryProgressPage(),));
+  }
+
+  void handlePaymentFailure(PaymentFailureResponse response){
+    Fluttertoast.showToast(msg: "Payment Failure " + response.message!);
+  }
+
+  void handleExternalWallet(ExternalWalletResponse response){
+    Fluttertoast.showToast(msg: "External Wallet" + response.walletName!,toastLength: Toast.LENGTH_SHORT);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
 
   @override
   void initState() {
-    _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
-      setState(() {
-        apps = value;
-      });
-    }).catchError((e) {
-      apps = [];
-    });
     super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentFailure);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWallet);
   }
-
-  Future<UpiResponse> initiateTransaction(UpiApp app, double payAmount) async {
-
-    return _upiIndia.startTransaction(
-      app: app,
-      receiverUpiId: "8319785116@ptaxis",
-      receiverName: 'Yashwant Choure',
-      transactionRefId: 'TestingUpiIndiaPlugin',
-      transactionNote: "Ordered from Yashwant's Restauro",
-      amount: payAmount,
-    );
-  }
-
-  Widget displayUpiApps() {
-    if (apps == null)
-      return Center(child: CircularProgressIndicator());
-    else if (apps!.length == 0)
-      return Center(
-        child: Text(
-          "No apps found to handle transaction.",
-          style: header,
-        ),
-      );
-    else
-      return Consumer<Restaurant>(builder: (context, restaurant, child) {
-
-        final payAmount = restaurant.getTotalPrice();
-
-        return Align(
-          alignment: Alignment.topCenter,
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Wrap(
-              children: apps!.map<Widget>((UpiApp app) {
-                return GestureDetector(
-                  onTap: () {
-                    _transaction = initiateTransaction(app,payAmount);
-                    setState(() {});
-                  },
-                  child: Container(
-                    height: 100,
-                    width: 100,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.memory(
-                          app.icon,
-                          height: 60,
-                          width: 60,
-                        ),
-                        Text(app.name),
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-        );
-      },);
-  }
-
-  String _upiErrorHandler(error) {
-
-    switch (error) {
-      case UpiIndiaAppNotInstalledException:
-        return 'Requested app not installed on device';
-      case UpiIndiaUserCancelledException:
-        return 'You cancelled the transaction';
-      case UpiIndiaNullResponseException:
-        return 'Requested app didn\'t return any response';
-      case UpiIndiaInvalidParametersException:
-        return 'Requested app cannot handle the transaction';
-      default:
-        return 'Transaction is cancelled';
-    }
-  }
-
-  void _checkTxnStatus(String status) {
-    switch (status) {
-      case UpiPaymentStatus.SUCCESS:
-        {
-          Navigator.pop(context);
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DeliveryProgressPage(),
-              ));
-
-          print('Transaction Successful');
-          break;
-        }
-      case UpiPaymentStatus.SUBMITTED:
-        print('Transaction Submitted');
-        break;
-      case UpiPaymentStatus.FAILURE:
-        {
-          print('Transaction Failed');
-          break;
-        }
-      default:
-        print('Received an Unknown transaction status');
-    }
-  }
-
-  Widget displayTransactionData(title, body) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("$title: ", style: header),
-          Flexible(
-              child: Text(
-            body,
-            style: value,
-          )),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text('UPI'),
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Colors.transparent,
+        title: const Text("Checkout"),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: displayUpiApps(),
-          ),
-          Expanded(
-            child: FutureBuilder(
-              future: _transaction,
-              builder:
-                  (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        _upiErrorHandler(snapshot.error.runtimeType),
-                        style: header,
-                      ), // Print's text message on screen
-                    );
-                  }
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Amount To Be Paid : ${widget.amount}",style: TextStyle(fontSize: 20,color: Theme.of(context).colorScheme.inversePrimary),),
 
-                  // If we have data then definitely we will have UpiResponse.
-                  // It cannot be null
-                  UpiResponse _upiResponse = snapshot.data!;
+            const Gap(100),
 
-                  // Data in UpiResponse can be null. Check before printing
-                  String txnId = _upiResponse.transactionId ?? 'N/A';
-                  String resCode = _upiResponse.responseCode ?? 'N/A';
-                  String txnRef = _upiResponse.transactionRefId ?? 'N/A';
-                  String status = _upiResponse.status ?? 'N/A';
-                  String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
-                  _checkTxnStatus(status);
-
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        displayTransactionData('Transaction Id', txnId),
-                        displayTransactionData('Response Code', resCode),
-                        displayTransactionData('Reference Id', txnRef),
-                        displayTransactionData('Status', status.toUpperCase()),
-                        displayTransactionData('Approval No', approvalRef),
-                      ],
-                    ),
-                  );
-                } else
-                  return Center(
-                    child: Text(''),
-                  );
-              },
-            ),
-          )
-        ],
+            MyButton(onTap: () => openCheckout(widget.amount), text: "Make Payment"),
+          ],
+        ),
       ),
     );
   }

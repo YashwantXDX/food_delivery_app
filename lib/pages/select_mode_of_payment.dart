@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/pages/payment_page.dart';
 import 'package:food_delivery_app/services/payment/UpiPayment.dart';
+import 'package:food_delivery_app/models/restaurant.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class SelectModeOfPaymentPage extends StatelessWidget {
   const SelectModeOfPaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    double amount = context.read<Restaurant>().getTotalPrice();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -47,7 +52,7 @@ class SelectModeOfPaymentPage extends StatelessWidget {
 
             Center(
               child: TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UpiPaymentPage(),)),
+                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RazorPayPage(amount),)),
                 child: Container(
                   width: MediaQuery.of(context).size.width - 50,
                   child: Row(
@@ -57,7 +62,7 @@ class SelectModeOfPaymentPage extends StatelessWidget {
                       // image icon
                       Icon(Icons.stay_current_portrait,color: Theme.of(context).colorScheme.inversePrimary,),
                       // mode of payment
-                      Text("UPI",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),),
+                      Text("Razor Pay",style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),),
                       // arrow icon
                       Icon(Icons.arrow_forward_ios_sharp,color: Theme.of(context).colorScheme.inversePrimary,),
 
