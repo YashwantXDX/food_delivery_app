@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
 import 'package:food_delivery_app/services/auth/auth_service.dart';
+import 'package:food_delivery_app/services/database/firestore.dart';
 import 'package:gap/gap.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,13 +15,20 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  FirestoreService database = FirestoreService();
+
+  
   //text editing controllers
+  final TextEditingController nameController = TextEditingController();
+
+  final TextEditingController mobileController = TextEditingController();
+
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   // register method
   void register() async {
@@ -72,9 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
-          
+
               const Gap(25),
-          
+
               //message, app slogan
               Text(
                 "Create an Account",
@@ -83,9 +91,27 @@ class _RegisterPageState extends State<RegisterPage> {
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
-          
+
               const Gap(25),
-          
+
+              //name textfield
+              MyTextField(
+                controller: nameController,
+                hintText: "Name",
+                obscureText: false,
+              ),
+
+              const Gap(25),
+
+              //mobile textfield
+              MyTextField(
+                controller: mobileController,
+                hintText: "Mobile",
+                obscureText: false,
+              ),
+
+              const Gap(25),
+
               //email textfield
               MyTextField(
                 controller: emailController,
@@ -114,7 +140,10 @@ class _RegisterPageState extends State<RegisterPage> {
               const Gap(25),
           
               //sign up button
-              MyButton(onTap: () {register();}, text: "Sign Up"),
+              MyButton(onTap: () {
+                register();
+                database.saveCustomerInfo(nameController.text, mobileController.text, emailController.text);
+                }, text: "Sign Up"),
           
               const Gap(25),
           

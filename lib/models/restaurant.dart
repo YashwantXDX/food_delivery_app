@@ -192,7 +192,7 @@ class Restaurant extends ChangeNotifier {
       name: "Sprite",
       description: "Sprite 500ml",
       imagePath: "assets/images/drinks/Sprite.jpg",
-      price: 49,
+      price: 1,
       category: FoodCategory.Drinks,
       availableAddons: [
         Addons(name: "Extra Cup", price: 10),
