@@ -6,7 +6,6 @@ import 'package:food_delivery_app/services/auth/auth_service.dart';
 import 'package:gap/gap.dart';
 
 class LoginPage extends StatefulWidget {
-
   final void Function()? onTap;
 
   const LoginPage({super.key, required this.onTap});
@@ -21,22 +20,24 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
 
   //login method
-  void login() async{
-
+  void login() async {
     // get instance of auth service
     final _authService = AuthService();
 
     // try sign in
-    try{
-      await _authService.signInWithEmailPassword(emailController.text, passwordController.text);
+    try {
+      await _authService.signInWithEmailPassword(
+          emailController.text, passwordController.text);
     }
 
     //display any errors
-    catch(e){
+    catch (e) {
+      String message = e.toString().replaceFirst("Exception: ", "");
+
       showDialog(
         context: context,
-        builder: (context) => const AlertDialog(
-          title: Text("Email / Password Provided is Incorrect"),
+        builder: (context) => AlertDialog(
+          title: Text(message),
         ),
       );
     }
@@ -57,9 +58,9 @@ class _LoginPageState extends State<LoginPage> {
                 size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
-          
+
               const Gap(25),
-          
+
               //message, app slogan
               Text(
                 "Login",
@@ -68,59 +69,75 @@ class _LoginPageState extends State<LoginPage> {
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
-          
+
               const Gap(25),
-          
+
               //email textfield
               MyTextField(
-                  controller: emailController,
-                  hintText: "Enter Email",
-                  obscureText: false,
+                controller: emailController,
+                hintText: "Enter Email",
+                obscureText: false,
               ),
-          
+
               const Gap(25),
-          
+
               // password textfield
               MyTextField(
-                  controller: passwordController,
-                  hintText: "Enter Password",
-                  obscureText: true,
+                controller: passwordController,
+                hintText: "Enter Password",
+                obscureText: true,
               ),
-          
+
               const Gap(10),
-          
+
               //forgot password
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: GestureDetector(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordPage(),)),child: Text("Forgot Password?",style: TextStyle(fontSize: 12),),),
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordPage(),
+                          )),
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ),
                   ),
                 ],
               ),
-          
+
               const Gap(25),
-          
+
               //sign in button
               MyButton(onTap: login, text: "Sign In"),
-          
+
               const Gap(25),
-          
+
               //not a member? register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Not a member? ",style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),),
+                  Text(
+                    "Not a member? ",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    ),
+                  ),
                   const Gap(4),
                   GestureDetector(
                     onTap: widget.onTap,
-                    child: Text("Register Now",style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold,
-                    ),),
+                    child: Text(
+                      "Register Now",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ],
               ),

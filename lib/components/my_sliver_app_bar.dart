@@ -33,15 +33,18 @@ class _MySliverAppBarState extends State<MySliverAppBar> {
               );
             },
           ),
-          child: IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CartPage(),
-                  ));
-            },
-            icon: const Icon(Icons.shopping_cart),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0,0,10,0),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartPage(),
+                    ));
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
           ),
         ),
 

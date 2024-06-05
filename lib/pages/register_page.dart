@@ -45,10 +45,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
       //display any errors
       catch (e) {
+        String message = e.toString().replaceFirst("Exception: ", "");
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text("Email Field is empty"),
+            title: Text(message),
           ),
         );
       }
@@ -65,6 +66,34 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  bool checkMobile(String mobile){
+    if(mobile.length != 10){
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("invalid-mobile-number"),
+        ),
+      );
+      return false;
+    }
+
+    for(int i = 0; i < 10; i++){
+      if(mobile[i].contains('0') || mobile[i].contains('1') || mobile[i].contains('2') || mobile[i].contains('3') || mobile[i].contains('4') || mobile[i].contains('5') || mobile[i].contains('6') || mobile[i].contains('7') || mobile[i].contains('8') || mobile[i].contains('9')){
+        continue;
+      }
+      else{
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("invalid-mobile-number"),
+          ),
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,10 +103,11 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Gap(25),
               //logo
               Icon(
                 Icons.lock_open_rounded,
-                size: 100,
+                size: 80,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),
 
@@ -141,8 +171,13 @@ class _RegisterPageState extends State<RegisterPage> {
           
               //sign up button
               MyButton(onTap: () {
-                register();
-                database.saveCustomerInfo(nameController.text, mobileController.text, emailController.text);
+
+                if( checkMobile(mobileController.text)) {
+                  register();
+                  database.saveCustomerInfo(
+                      nameController.text, mobileController.text,
+                      emailController.text);
+                }
                 }, text: "Sign Up"),
           
               const Gap(25),
@@ -170,6 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
+            const Gap(25),
             ],
           ),
         ),
